@@ -11,19 +11,32 @@ const refs = {
    countryInfo: document.querySelector('.country-info'),
  };
 
- refs.searchBox.addEventListener('input', onSearchinput);
+ refs.searchBox.addEventListener('input', debounce(onSearchinput), 300);
 
 function onSearchinput (e) {
    e.preventDefault();
    const name = e.target.value.trim();//собираем с формы значение
 
-fetchUser(name)
-   .then(data => console.log(data)) //доступ к данным
+fetchUser(name).then(showCountries); //доступ к данным
+}
+
+function showCountries(data) {
+   
+console.log(data);
+   const element = 
+   `
+   <li class="country-list__item">
+      <img class="country-list__flag" src="${data[0].flags.svg}" alt="Flag of ${data[0].name.official}" width = 50px height = 50px>
+      <p class="country-list__name">${data[0].name.official}</p>
+   </li>
+
+   `
+   refs.countryList.innerHTML = element;
 }
 
 function fetchUser (name) {
-   return fetch(`https://restcountries.com/v3.1/name/${name}?fields=name.official,capital,population,flags.svg,languages`)
-   .then(response => response.json())
+   return fetch(`https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`)
+   .then(response => response.json());
 }
 
 
