@@ -28,8 +28,8 @@ function showError(error) {
 }
 
 function showCountries(data) {
-   
-console.log(data);
+   console.log(data);
+
    const element = 
    `
    <li class="country-list__item">
@@ -38,7 +38,21 @@ console.log(data);
    </li>
 
    `
+
+   const country = 
+   `
+   <li class="country-list__item">
+      <img class="country-list__flag" src="${data[0].flags.svg}" alt="Flag of ${data[0].name.official}" width = 50px height = 50px>
+      <p class="country-list__name">${data[0].name.official}</p>
+   </li>
+   <li class="country-list__item">${data[0].capital }</li>
+   <li class="country-list__item">${data[0].population}</li>
+   <li class="country-list__item">${data[0].languages}</li>
+
+   `
+   console.log(data[0].languages);
    refs.countryList.innerHTML = element;
+   refs.countryInfo.innerHTML = country;
 }
 
 
