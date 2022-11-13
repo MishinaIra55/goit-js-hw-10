@@ -17,9 +17,15 @@ function onSearchinput (e) {
    e.preventDefault();
    const name = e.target.value.trim();//собираем с формы значение
 
-fetchUser(name).then(showCountries); //доступ к данным
+fetchUser(name)
+.then(showCountries) //доступ к данным
+.catch(showError);
 }
 
+function showError(error) {
+   console.log(error);
+   refs.searchBox.innerHTML = Notify.failure("Oops, there is no country with that name")
+}
 function showCountries(data) {
    
 console.log(data);
@@ -35,8 +41,13 @@ console.log(data);
 }
 
 function fetchUser (name) {
-   return fetch(`https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`)
-   .then(response => response.json());
+   return fetch(`https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`).then(responce => {
+      if (!responce.ok) {
+         throw Error(responce.statusText);
+      }
+      return responce.json();
+   });
+   
 }
 
 
