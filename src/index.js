@@ -1,5 +1,5 @@
 import './css/styles.css';
-import { fetchUser } from './fetch-countries';
+import { fetchCountry } from './fetch-countries';
 import debounce from 'lodash.debounce';
 import {Notify} from 'notiflix/build/notiflix-notify-aio';
 
@@ -19,7 +19,7 @@ const refs = {
      return (refs.countryList.innerHTML = ''), (refs.countryInfo.innerHTML = '')
    }//собираем с формы значение
 
-fetchUser(name)//доступ к данным
+fetchCountry(name)//доступ к данным
 .then(countries => {
    refs.countryList.innerHTML = ''
    refs.countryInfo.innerHTML = ''
