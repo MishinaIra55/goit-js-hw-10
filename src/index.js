@@ -19,7 +19,7 @@ const refs = {
      return (refs.countryList.innerHTML = ''), (refs.countryInfo.innerHTML = '')
    }//собираем с формы значение
 
-fetchUser(name)
+fetchUser(name)//доступ к данным
 .then(countries => {
    refs.countryList.innerHTML = ''
    refs.countryInfo.innerHTML = ''
